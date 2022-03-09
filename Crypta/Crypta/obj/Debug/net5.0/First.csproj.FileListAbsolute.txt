@@ -1,0 +1,16 @@
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\bin\Debug\net5.0\First.exe
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\bin\Debug\net5.0\First.deps.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\bin\Debug\net5.0\First.runtimeconfig.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\bin\Debug\net5.0\First.runtimeconfig.dev.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\bin\Debug\net5.0\First.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\bin\Debug\net5.0\ref\First.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\bin\Debug\net5.0\First.pdb
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.csproj.AssemblyReference.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.AssemblyInfoInputs.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.AssemblyInfo.cs
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.csproj.CoreCompileInputs.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\ref\First.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.pdb
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\Crypta\obj\Debug\net5.0\First.genruntimeconfig.cache

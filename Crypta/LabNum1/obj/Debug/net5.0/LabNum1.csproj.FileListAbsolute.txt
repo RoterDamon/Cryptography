@@ -1,0 +1,16 @@
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.csproj.AssemblyReference.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.AssemblyInfoInputs.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.AssemblyInfo.cs
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.csproj.CoreCompileInputs.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\bin\Debug\net5.0\LabNum1.exe
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\bin\Debug\net5.0\LabNum1.deps.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\bin\Debug\net5.0\LabNum1.runtimeconfig.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\bin\Debug\net5.0\LabNum1.runtimeconfig.dev.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\bin\Debug\net5.0\LabNum1.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\bin\Debug\net5.0\ref\LabNum1.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\bin\Debug\net5.0\LabNum1.pdb
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\ref\LabNum1.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.pdb
+C:\Users\WAIFU BIG FLOPPA\source\repos\Crypta\LabNum1\obj\Debug\net5.0\LabNum1.genruntimeconfig.cache

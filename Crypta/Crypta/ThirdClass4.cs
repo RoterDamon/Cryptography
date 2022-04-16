@@ -17,7 +17,7 @@ namespace First
         public ThirdClass4( EncryptionMode mode, byte[] vector)
         {
             encryptionMode = mode;
-            InitializationVector = vector;
+            InitializationVector = vector; 
         }
         public byte[] Encrypt(byte[] data)
         {
@@ -37,12 +37,28 @@ namespace First
                     }
                 case EncryptionMode.CBC:
                     {
-                        
+                        byte[] prevBlock = new byte[BlockSize];
+                        byte[] curBlock = new byte[BlockSize];
+                        Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
+                        for (int i = 0; i < res.Length / BlockSize; i++)
+                        {
+                            Array.Copy(res, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(algorithm.EncryptBlock(XOR(curBlock, prevBlock)));
+                            Array.Copy(blocks[i], prevBlock, BlockSize);
+                        }
                         break;
                     }
-                case EncryptionMode.CFB:
+                case EncryptionMode.CFB://curEncBlock = E(prevEncBlock) ^ block
                     {
-                        
+                        byte[] prevBlock = new byte[BlockSize];
+                        byte[] curBlock = new byte[BlockSize];
+                        Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
+                        for (int i = 0; i < res.Length / BlockSize; i++)
+                        {
+                            Array.Copy(res, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(XOR(algorithm.EncryptBlock(prevBlock), curBlock));
+                            Array.Copy(blocks[i], prevBlock, BlockSize);
+                        }
                         break;
                     }
                 case EncryptionMode.OFB:
@@ -83,12 +99,28 @@ namespace First
                     }
                 case EncryptionMode.CBC:
                     {
-                        
+                        byte[] prevBlock = new byte[BlockSize];
+                        byte[] curBlock = new byte[BlockSize];
+                        Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
+                        for (int i = 0; i < data.Length / BlockSize; i++)
+                        {
+                            Array.Copy(data, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(XOR(prevBlock, algorithm.DecryptBlock(curBlock)));
+                            Array.Copy(curBlock, prevBlock, BlockSize);
+                        }
                         break;
                     }
                 case EncryptionMode.CFB:
                     {
-                        
+                        byte[] prevBlock = new byte[BlockSize];
+                        byte[] curBlock = new byte[BlockSize];
+                        Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
+                        for (int i = 0; i < data.Length / BlockSize; i++)
+                        {
+                            Array.Copy(data, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(XOR(algorithm.EncryptBlock(prevBlock), curBlock));
+                            Array.Copy(curBlock, prevBlock, BlockSize);
+                        }
                         break;
                     }
                 case EncryptionMode.OFB:
@@ -109,7 +141,6 @@ namespace First
                         break;
                     }
             }
-            // padding 
             byte[] array = MakeArrayFromList(blocks);
             byte extraBlocks = array[array.Length - 1];
             var res = new byte[array.Length - extraBlocks];
@@ -123,7 +154,7 @@ namespace First
             mod = (byte)(mod == 0 ? BlockSize : mod);
             byte[] addedData = new byte[data.Length + mod];
             Array.Copy(data, addedData, data.Length);
-            Array.Fill(addedData, mod, data.Length, mod);
+            Array.Fill(addedData, mod, data.Length, mod); 
             return addedData;
         }
 
@@ -138,6 +169,14 @@ namespace First
             return res;
         }
 
-        
+        private byte[] XOR(byte[] left, byte[] right)
+        {
+            byte[] res = new byte[left.Length];
+            for (int i = 0; i < left.Length; i++)
+            {
+                res[i] = (byte)(left[i] ^ right[i]);
+            }
+            return res;
+        }
     }
 }

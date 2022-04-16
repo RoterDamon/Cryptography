@@ -25,7 +25,7 @@ namespace First
             34, 2, 42, 10, 50, 18, 58, 26, 33, 1, 41, 9,  49, 17, 57, 25
         };
         #endregion
-        public FifthDES(Encryption name1, GenerationRoundKeys name2) : base(name2, name1)
+        public FifthDES(Encryption name1, RoundKeysGenerator name2) : base(name2, name1)
         {
 
         }

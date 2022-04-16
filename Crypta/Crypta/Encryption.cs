@@ -80,7 +80,7 @@ namespace First
         #endregion
         public byte[] EncryptFunc(byte[] block, byte[] roundKey)
         {
-            ulong expandedN = BitConverter.ToUInt64(XOR(Permute(ExpandingPermutation, block), roundKey));
+            ulong expandedN = BitConverter.ToUInt64(Permute(ExpandingPermutation, block)) ^ BitConverter.ToUInt64(roundKey);
             ulong res = 0;
             ulong B, row, column;
             for (int i = 0; i < 8; i++)
@@ -105,15 +105,7 @@ namespace First
             }
             return BitConverter.GetBytes(res);
         }
-        private byte[] XOR(byte[] left, byte[] right)
-        {
-            byte[] res = new byte[left.Length];
-            for (int i = 0; i < left.Length; i++)
-            {
-                res[i] = (byte)(left[i] ^ right[i]);
-            }
-            return res;
-        }
+        
 
     }
 }

@@ -20,7 +20,7 @@ namespace First
         public virtual byte[] EncryptBlock(byte[] message)
         {
             ulong res = BitConverter.ToUInt64(message, 0);
-            uint left = (uint)(res >> 32 );
+            uint left = (uint)(res >> 32);
             uint right = (uint)(res & ((ulong)1 << 32) - 1);
             uint newLeft = 0, newRight = 0;
             for (int round = 0; round < 16; round++)

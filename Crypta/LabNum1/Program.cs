@@ -13,7 +13,7 @@ namespace LabNum1
             };
             Console.WriteLine(Permute(4, permRule));
         }
-
+        //100 -> 100
         public static ulong Permute(ulong n, byte[] permRule)
         {
             ulong res = 0;

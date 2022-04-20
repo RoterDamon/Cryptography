@@ -12,18 +12,18 @@ namespace Second
     {
         public static BigInteger Jacobi(BigInteger a, BigInteger n)
         {
-            int pow; 
+            int value; 
 
             if (a == 1) return 1;
 
-            pow = (((n - 1) / 2) % 2 == 0 ? 2 : 1);
-            if (a < 0) return Jacobi(-a, n) * BigInteger.Pow(-1, pow);
+            value = (((n - 1) / 2) % 2 == 0 ? 1 : -1);
+            if (a < 0) return Jacobi(-a, n) * value;
 
-            pow = (((n * n - 1) / 8) % 2 == 0 ? 2 : 1);
-            if (a % 2 == 0) return Jacobi(a / 2, n) * BigInteger.Pow(-1, pow);
+            value = (((n * n - 1) / 8) % 2 == 0 ? 1 : -1);
+            if (a % 2 == 0) return Jacobi(a / 2, n) * value;
 
-            pow = (((a - 1) * (n - 1) / 4) % 2 == 0 ? 2 : 1);
-            return (BigInteger.Pow(-1, pow) * Jacobi(n % a, a));
+            value = (((a - 1) * (n - 1) / 4) % 2 == 0 ? 1 : -1);
+            return value * Jacobi(n % a, a);
         }
         public static BigInteger Legendre(BigInteger a, BigInteger p)
         {
@@ -32,11 +32,11 @@ namespace Second
 
             if (a == 1) return 1;
 
-            int pow = (((a - 1) * (p - 1) / 4) % 2 == 0 ? 2 : 1);
-            if (a % 2 != 0) return Legendre(p % a, a) * BigInteger.Pow(-1, pow);
+            int value = (((a - 1) * (p - 1) / 4) % 2 == 0 ? 1 : -1);
+            if (a % 2 != 0) return Legendre(p % a, a) * value;
 
-            pow = (((p * p - 1) / 8) % 2 == 0 ? 2 : 1);
-            return Legendre(a / 2, p) * BigInteger.Pow(-1, pow);
+            value = (((p * p - 1) / 8) % 2 == 0 ? 2 : 1);
+            return Legendre(a / 2, p) * value;
         }
 
         public static BigInteger RandomInteger(BigInteger belov, BigInteger above)

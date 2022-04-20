@@ -13,15 +13,17 @@ namespace First
         public byte[] InitializationVector;
         static int BlockSize = 8;
         public ThirdInterface3 algorithm;
+        string value;
         
-        public ThirdClass4( EncryptionMode mode, byte[] vector)
+        public ThirdClass4( EncryptionMode mode, byte[] vector, string str)
         {
             encryptionMode = mode;
-            InitializationVector = vector; 
+            InitializationVector = vector;
+            value = str;
         }
         public byte[] Encrypt(byte[] data)
         {
-            byte[] res = MakkePaddingPKCS7(data);
+            byte[] res = MakePaddingPKCS7(data);
             List<byte[]> blocks = new List<byte[]>();
             switch (encryptionMode)
             {
@@ -63,19 +65,71 @@ namespace First
                     }
                 case EncryptionMode.OFB:
                     {
-                        
+                        byte[] prevBlock = new byte[BlockSize];
+                        byte[] curBlock = new byte[BlockSize];
+                        byte[] encryptBlock = new byte[BlockSize];
+                        Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
+                        for (int i = 0; i < res.Length / BlockSize; i++)
+                        {
+                            Array.Copy(res, i * BlockSize, curBlock, 0, BlockSize);
+                            encryptBlock = algorithm.EncryptBlock(prevBlock);
+                            blocks.Add(XOR(encryptBlock, curBlock));
+                            Array.Copy(encryptBlock, prevBlock, BlockSize);
+                        }
                         break;
                     }
                 case EncryptionMode.CTR:
                     {
+                        var copyIV = new byte[8];
+                        InitializationVector.CopyTo(copyIV, 0);
+                        var counter = BitConverter.ToUInt64(copyIV);
+                        byte[] curBlock = new byte[BlockSize];
+                        for (int i = 0; i < res.Length / BlockSize; i++)
+                        {
+                            Array.Copy(res, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(XOR(algorithm.EncryptBlock(copyIV), curBlock));
+                            counter++;
+                            copyIV = BitConverter.GetBytes(counter);
+                        }
                         break;
                     }
                 case EncryptionMode.RD:
                     {
+                        byte[] curBlock = new byte[BlockSize];
+                        byte[] DeltaArr = new byte[8];
+                        Array.Copy(InitializationVector, 8, DeltaArr, 0, BlockSize);
+                        var copyIV = new byte[8];
+                        Array.Copy(InitializationVector, 0, copyIV, 0, BlockSize);
+                        var IV = BitConverter.ToUInt64(copyIV);
+                        var Delta = BitConverter.ToUInt64(DeltaArr);
+                        blocks.Add(algorithm.EncryptBlock(copyIV));
+                        for (int i = 0; i < res.Length / BlockSize; i++)
+                        {
+                            Array.Copy(res, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(algorithm.EncryptBlock(XOR(copyIV, curBlock)));
+                            IV += Delta;
+                            copyIV = BitConverter.GetBytes(IV);
+                        }
                         break;
                     }
                 case EncryptionMode.RDH:
                     {
+                        byte[] curBlock = new byte[BlockSize];
+                        byte[] DeltaArr = new byte[8];
+                        Array.Copy(InitializationVector, 8, DeltaArr, 0, BlockSize);
+                        var copyIV = new byte[8];
+                        Array.Copy(InitializationVector, 0, copyIV, 0, BlockSize);
+                        var IV = BitConverter.ToUInt64(copyIV);
+                        var Delta = BitConverter.ToUInt64(DeltaArr);
+                        blocks.Add(algorithm.EncryptBlock(copyIV));
+                        blocks.Add(XOR(copyIV, MakePaddingPKCS7(BitConverter.GetBytes(value.GetHashCode()))));
+                        for (int i = 0; i < res.Length / BlockSize; i++)
+                        {
+                            IV += Delta;
+                            copyIV = BitConverter.GetBytes(IV);
+                            Array.Copy(res, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(algorithm.EncryptBlock(XOR(copyIV, curBlock)));
+                        }
                         break;
                     }
             }
@@ -125,19 +179,72 @@ namespace First
                     }
                 case EncryptionMode.OFB:
                     {
-                        
+                        byte[] prevBlock = new byte[BlockSize];
+                        byte[] curBlock = new byte[BlockSize];
+                        byte[] encryptBlock = new byte[BlockSize];
+                        Array.Copy(InitializationVector, prevBlock, prevBlock.Length);
+                        for (int i = 0; i < data.Length / BlockSize; i++)
+                        {
+                            Array.Copy(data, i * BlockSize, curBlock, 0, BlockSize);
+                            encryptBlock = algorithm.EncryptBlock(prevBlock);
+                            blocks.Add(XOR(encryptBlock, curBlock));
+                            Array.Copy(encryptBlock, prevBlock, BlockSize);
+                        }
                         break;
                     }
                 case EncryptionMode.CTR:
                     {
+                        var counter = BitConverter.ToUInt64(InitializationVector);
+                        byte[] curBlock = new byte[BlockSize];
+                        for (int i = 0; i < data.Length / BlockSize; i++)
+                        {
+                            Array.Copy(data, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(XOR(algorithm.EncryptBlock(InitializationVector), curBlock));
+                            counter++;
+                            InitializationVector = BitConverter.GetBytes(counter);
+                        }
                         break;
                     }
                 case EncryptionMode.RD:
                     {
+                        byte[] curBlock = new byte[BlockSize];
+                        byte[] DeltaArr = new byte[8];
+                        Array.Copy(InitializationVector, InitializationVector.Length / 2, DeltaArr, 0, BlockSize);
+                        var copyIV = new byte[8];
+                        var Delta = BitConverter.ToUInt64(DeltaArr);
+                        Array.Copy(data, 0, curBlock, 0, BlockSize);
+                        copyIV = algorithm.DecryptBlock(curBlock);
+                        var IV = BitConverter.ToUInt64(copyIV);
+                        for (int i = 1; i < data.Length / BlockSize; i++)
+                        {
+                            Array.Copy(data, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(XOR(algorithm.DecryptBlock(curBlock), copyIV));
+                            IV += Delta;
+                            copyIV = BitConverter.GetBytes(IV);
+                        }
                         break;
                     }
                 case EncryptionMode.RDH:
                     {
+                        byte[] curBlock = new byte[BlockSize];
+                        byte[] DeltaArr = new byte[8];
+                        Array.Copy(InitializationVector, InitializationVector.Length / 2, DeltaArr, 0, BlockSize);
+                        var copyIV = new byte[8];
+                        var Delta = BitConverter.ToUInt64(DeltaArr);
+                        Array.Copy(data, 0, curBlock, 0, BlockSize);
+                        copyIV = algorithm.DecryptBlock(curBlock);
+                        var IV = BitConverter.ToUInt64(copyIV);
+                        Array.Copy(data, 8, curBlock, 0, BlockSize);
+                        if (!(XOR(copyIV, MakePaddingPKCS7(BitConverter.GetBytes(value.GetHashCode())))).SequenceEqual(curBlock))
+                            break;
+
+                        for (int i = 2; i < data.Length / BlockSize; i++)
+                        {
+                            IV += Delta;
+                            copyIV = BitConverter.GetBytes(IV);
+                            Array.Copy(data, i * BlockSize, curBlock, 0, BlockSize);
+                            blocks.Add(XOR(algorithm.DecryptBlock(curBlock), copyIV));
+                        }
                         break;
                     }
             }
@@ -148,7 +255,7 @@ namespace First
             return res;
         }
 
-        private byte[] MakkePaddingPKCS7(byte[] data)
+        private byte[] MakePaddingPKCS7(byte[] data)
         {
             byte mod = (byte)(BlockSize - data.Length % BlockSize);
             mod = (byte)(mod == 0 ? BlockSize : mod);

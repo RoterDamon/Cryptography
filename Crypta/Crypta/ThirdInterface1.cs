@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace First
 {
-    interface ThirdInterface1
+    public interface ThirdInterface1
     {
         byte[][] GenerateRoundKeys(byte[] key);
     }

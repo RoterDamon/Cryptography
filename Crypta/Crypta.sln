@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "First", "Crypta\First.csproj", "{246A176A-551C-4B28-9B4F-802F1E69E3DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabNum1", "LabNum1\LabNum1.csproj", "{941B32F6-61D1-465B-B9BC-EC4226669A5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabNum1", "LabNum1\LabNum1.csproj", "{941B32F6-61D1-465B-B9BC-EC4226669A5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabNum2", "LabNum2\LabNum2.csproj", "{E4054484-BAD7-4B0A-968F-6B4AEB7085C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabNum2", "LabNum2\LabNum2.csproj", "{E4054484-BAD7-4B0A-968F-6B4AEB7085C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Second", "Second\Second.csproj", "{73CB867E-9A8D-4671-B0FE-D5A9AEB38849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Second", "Second\Second.csproj", "{73CB867E-9A8D-4671-B0FE-D5A9AEB38849}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

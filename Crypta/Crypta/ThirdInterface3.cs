@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace First
 {
-    interface ThirdInterface3
+    public interface ThirdInterface3
     {
         byte[] EncryptBlock(byte[] message);
-
         byte[] DecryptBlock(byte[] message);
-
         void SetKey(byte[] key);
-
     }
 }

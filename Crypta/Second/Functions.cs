@@ -39,7 +39,7 @@ namespace Second
             return Legendre(a / 2, p) * value;
         }
 
-        public static BigInteger RandomInteger(BigInteger belov, BigInteger above)
+        public static BigInteger RandomInteger(BigInteger below, BigInteger above)
         {
             RandomNumberGenerator rng = RandomNumberGenerator.Create();
             byte[] bytes = above.ToByteArray();
@@ -48,7 +48,7 @@ namespace Second
             {
                 rng.GetBytes(bytes);
                 R = new BigInteger(bytes);
-            } while (!(R >= belov && R <= above));
+            } while (!(R >= below && R <= above));
 
             return R;
         }

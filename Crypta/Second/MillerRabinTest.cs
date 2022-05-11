@@ -9,7 +9,8 @@ namespace Second
         {
             BigInteger d = value - 1;
             int degree = 0;
-
+            if (value == 1)
+                return false;
             while (d % 2 == 0)
             {
                 d /= 2;

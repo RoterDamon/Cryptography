@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace First
 {
-    interface ThirdInterface2
+    public interface ThirdInterface2
     {
         byte[] EncryptFunc(byte[] block, byte[] roundKey);
     }

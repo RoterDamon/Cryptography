@@ -9,11 +9,15 @@ namespace Second
 {
     class Attack
     {
-        public List<Tuple<BigInteger, BigInteger>> WienerAttack(BigInteger message, BigInteger e, BigInteger N)
+        public Tuple<BigInteger, List<Tuple<BigInteger, BigInteger>>> WienerAttack(BigInteger e, BigInteger N)
         {
             int count = 0;
-            List<Tuple<BigInteger, BigInteger>> result = new List<Tuple<BigInteger, BigInteger>>();
+            List<Tuple<BigInteger, BigInteger>> list = new List<Tuple<BigInteger, BigInteger>>();
             BigInteger M, C;
+            var random = new Random();
+            byte[] buffer = new byte[8];
+            random.NextBytes(buffer);
+            BigInteger message   = new BigInteger(buffer);
             C = Functions.QuickPow(message, e, N);
             BigInteger limitD = (BigInteger)(0.3333 * Math.Pow((double)N, 0.25));
             List<BigInteger> quotients = ContinuedFraction(e, N);
@@ -22,16 +26,16 @@ namespace Second
                 if (quotients[i] > limitD)
                     break;
                 M = Functions.QuickPow(C, quotients[i], N); 
-                result.Add(new Tuple<BigInteger, BigInteger>(quotients[count], quotients[count + 1]));
+                list.Add(new Tuple<BigInteger, BigInteger>(quotients[count], quotients[count + 1]));
                 if (message == M)
                 {
-                    Console.WriteLine("Подходящая дешифрующая экспонента: ", quotients[count + 1]);
-                    break;
+                    return new(quotients[count + 1], list);
                 }
                     
                 count += 2;
             }
-            return result;
+
+            return new(0, list);
         }
         public List<BigInteger> ContinuedFraction(BigInteger up, BigInteger down)
         {                

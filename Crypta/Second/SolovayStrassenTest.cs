@@ -8,6 +8,8 @@ namespace Second
         public bool MakeSimplicityTest(BigInteger value, double minProbability)
         {
             Random rnd = new Random();
+            if (value == 1)
+                return false;
             for (int i = 0; 1.0-Math.Pow(2, -i) <= minProbability; i++)
             {
                 BigInteger a = Functions.RandomInteger(2, value - 1);

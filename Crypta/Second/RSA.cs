@@ -12,12 +12,7 @@ namespace Second
         public BigInteger n;    //p*q
         public BigInteger e;    //public key
         public BigInteger d;   //private key
-        public Keys(int e = 3, int n = 0, int d = 0)
-        {
-            this.e = e;
-            this.d = d;
-            this.n = n;
-        }
+        
     }
     class RSA
     {
@@ -78,7 +73,7 @@ namespace Second
                     {
                         x += euler;
                     }
-                    if (x > (BigInteger)(0.3333 * Math.Pow((double)keys.n, 0.25)))
+                    if (x > (BigInteger)(0.3333 * Math.Pow((double)keys.n, 0.25)))//винер проверка
                     {
                         keys.d = x;
                         break;
